@@ -12,6 +12,7 @@
     <properties>
         <jersey.version>2.7</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4jVersion>1.6.1</slf4jVersion>
     </properties>
 
 
@@ -36,7 +37,17 @@
     </distributionManagement>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4jVersion}</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
@@ -85,7 +96,24 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.0.5.v20130815</version>
+                <version>9.2.1.v20140609</version>
+                <configuration>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                    <httpConnector>
+                        <port>80</port>
+                    </httpConnector>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>org.eclipse.jetty.util.log.Log</name>
+                            <value>org.eclipse.jetty.util.log.Slf4jLog</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>logback.configurationFile</name>
+                            <value>${project.baseUri}/src/main/resources/logback.xml</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,6 +1,5 @@
 package no.kantega.sensors.dash7;
 
-import javax.jws.WebParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.io.IOException;
@@ -16,12 +15,7 @@ public class SensorListnerResource {
 
     private static int counter = 0;
 
-    @POST
-    @Path("logger")
-    public void logEvent(String xmlEvent) {
 
-        System.out.println(System.currentTimeMillis() + ": " + xmlEvent);
-    }
 
     @POST
     public void handleEvent(String event)  {
@@ -41,10 +35,6 @@ public class SensorListnerResource {
                 s.greenLed(false);
         }
 
-        try {
-            SensorFileWriter.getInstance().write(s);
-        } catch (IOException e) {
-            System.out.println("Failed to write to sensors file");
-        }
+        SensorFileWriter.write(s);
     }
 }
