@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
  */
 public class SensorGateway {
 
-    private static final String TARGET_URL_FORMAT ="http://192.168.1.4/cgi-bin/luci/dash7/api/wf?uid=%s&file_id=%s&offset=%d&file_data=%s&file_len=%d&fwd=2";
+    private static final String TARGET_URL_FORMAT ="http://192.168.1.3/cgi-bin/luci/dash7/api/wf?uid=%s&file_id=%s&offset=%d&file_data=%s&file_len=%d&fwd=2";
     // "file_id=209&offset=0&file_len=1&fwd=2&uid=001BC50C7100000D&file_data=1"
 
     public final static String LED_ID = "0xd1";
@@ -27,7 +27,7 @@ public class SensorGateway {
 
     public static boolean sendToSensor(String uid, String fileId, int offset, String value ) {
 
-        System.out.println("Changing sensor " + uid + ": "+ fileId + ", " + offset + ", " + value);
+        System.out.println("Changing color " + uid + ": "+ fileId + ", " + offset + ", " + value);
         Client gwClient = ClientBuilder.newClient();
         String target = String.format(TARGET_URL_FORMAT,uid,fileId, offset, value, value.length());
         Invocation.Builder request = gwClient.target(target).request();

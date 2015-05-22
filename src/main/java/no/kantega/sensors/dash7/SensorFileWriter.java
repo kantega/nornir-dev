@@ -1,6 +1,6 @@
 package no.kantega.sensors.dash7;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,5 +26,20 @@ public class SensorFileWriter {
         }
 
     }
+
+    public static void write(TemperatureEvent s) {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            jsonLogger.info(mapper.writeValueAsString(s));
+        } catch (IOException e) {
+            LOG.error("Failed to transform Sensor class to json", e);
+        }
+
+    }
+
+
+
 
 }
